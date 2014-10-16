@@ -49,5 +49,11 @@ module TeamDashboard
     # change minification options to fix Angular.js dependency injection
     config.assets.js_compressor = Uglifier.new(:mangle => false)
     config.assets.precompile += %w(select2.png, spinner-gray-bg.gif spinner-green-bg.gif spinner-red-bg.gif spinner.gif spinner2.gif)
+    config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
